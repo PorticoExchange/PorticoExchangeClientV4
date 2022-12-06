@@ -1,0 +1,2 @@
+mkdocs-exclude
+mkdocs-material
