@@ -1800,9 +1800,12 @@ static struct command_result *json_createinvoice(struct command *cmd,
 	return command_success(cmd, response);
 }
 
+static cost sctruc payhold_invoice
+
 static const struct json_command createinvoice_command = {
 	"createinvoice",
 	"payment",
+	"payholdinvoice",
 	json_createinvoice,
 	"Lowlevel command to sign and create invoice {invstring}, resolved with {preimage}, using unique {label}."
 };
