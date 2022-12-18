@@ -56,11 +56,8 @@ endif
 
 EXTERNAL_LDLIBS := -L${TARGET_DIR} $(patsubst lib%.a,-l%,$(notdir $(EXTERNAL_LIBS)))
 
-submodcheck: $(FORCE)
-ifneq ($(VERSION),)
-	@tools/refresh-submodules.sh $(SUBMODULES)
-	@cd external/libwally-core && ../../tools/refresh-submodules.sh src/secp256k1
-endif
+submodcheck: FORCE
+	echo submodcheck disabled
 
 $(EXTERNAL_HEADERS): submodcheck
 
@@ -71,7 +68,7 @@ $(TARGET_DIR)/libsodium.a: $(TARGET_DIR)/libsodium-build/src/libsodium/libsodium
 $(TARGET_DIR)/libsodium-build/src/libsodium/libsodium.la: external/libsodium/src/libsodium/include/sodium.h
 	cd external/libsodium && ./autogen.sh
 	mkdir -p ${TARGET_DIR}/libsodium-build
-	cd $(TARGET_DIR)/libsodium-build && $(TOP)/libsodium/configure CC="$(CC)" --enable-static=yes $(CROSSCOMPILE_OPTS) --enable-shared=no --prefix=/ --libdir=/ && $(MAKE)
+	cd $(TARGET_DIR)/libsodium-build && $(TOP)/libsodium/configure CC="$(CC)" CFLAGS=-Wno-error --enable-static=yes $(CROSSCOMPILE_OPTS) --enable-shared=no --enable-tests=no --prefix=/ --libdir=/ && $(MAKE)
 
 # libsecp included in libwally.
 # Wildcards here are magic.  See http://stackoverflow.com/questions/2973445/gnu-makefile-rule-generating-a-few-targets-from-a-single-source-file
@@ -82,19 +79,7 @@ $(TARGET_DIR)/libsecp256k1.% $(TARGET_DIR)/libwallycore.%: $(TARGET_DIR)/libwall
 $(TARGET_DIR)/libwally-core-build/src/libwallycore.% $(TARGET_DIR)/libwally-core-build/src/secp256k1/libsecp256k1.%: $(LIBWALLY_HEADERS) $(LIBSECP_HEADERS)
 	cd external/libwally-core && ./tools/autogen.sh
 	mkdir -p ${TARGET_DIR}/libwally-core-build
-	cd ${TARGET_DIR}/libwally-core-build \
-	&& PYTHON_VERSION=3 CFLAGS=-std=c99 ${TOP}/libwally-core/configure CC="$(CC)" \
-		--enable-static=yes \
-		$(CROSSCOMPILE_OPTS) \
-		--enable-module-recovery \
-		--enable-module-extrakeys \
-		--enable-module-schnorrsig \
-		--enable-elements \
-		--enable-shared=no \
-		--prefix=/ \
-		--libdir=/ \
-		--enable-debug \
-	&& $(MAKE)
+	cd ${TARGET_DIR}/libwally-core-build && PYTHON_VERSION=3 CFLAGS=-std=c99 ${TOP}/libwally-core/configure CC="$(CC)" CFLAGS=-Wno-error --enable-static=yes $(CROSSCOMPILE_OPTS) --enable-module-recovery --enable-module-extrakeys --enable-module-schnorrsig --enable-elements --enable-shared=no --prefix=/ --libdir=/ --enable-debug && $(MAKE)
 
 # If we tell Make that the above builds both, it runs it twice in
 # parallel.  So we lie :(
@@ -110,8 +95,8 @@ $(TARGET_DIR)/libjsmn.a: $(TARGET_DIR)/jsmn-build/jsmn.o
 
 # Need separate build dir: changes inside submodule make git think it's dirty.
 $(TARGET_DIR)/libbacktrace.a: external/libbacktrace/backtrace.h
-	mkdir -p $(TARGET_DIR)/libbacktrace-build
-	cd $(TARGET_DIR)/libbacktrace-build && $(TOP)/libbacktrace/configure CC="$(CC)" --enable-static=yes $(CROSSCOMPILE_OPTS) --enable-shared=no --prefix=/ --libdir=/ && $(MAKE)
+	@mkdir $(TARGET_DIR)/libbacktrace-build 2>/dev/null || true
+	cd $(TARGET_DIR)/libbacktrace-build && $(TOP)/libbacktrace/configure CC="$(CC)" CFLAGS=-Wno-error --enable-static=yes $(CROSSCOMPILE_OPTS) --enable-shared=no --prefix=/ --libdir=/ && $(MAKE)
 	$(MAKE) -C $(TARGET_DIR)/libbacktrace-build DESTDIR=$$(pwd)/$(TARGET_DIR) install-exec
 
 $(TARGET_DIR)/lowdown-build/bin/lowdown: external/lowdown/lowdown.h

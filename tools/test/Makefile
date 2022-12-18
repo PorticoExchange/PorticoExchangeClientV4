@@ -24,8 +24,8 @@ TOOL_TEST_OBJS := $(TOOL_TEST_SRC:.c=.o)
 TOOL_TEST_PROGRAMS := $(TOOL_TEST_OBJS:.o=)
 
 # Get dependencies correct
-ALL_C_SOURCES += $(TOOL_GEN_SRC) $(TOOL_TEST_SRC)
-ALL_C_HEADERS += $(TOOL_GEN_HEADER)
+#ALL_C_SOURCES += $(TOOL_GEN_SRC) $(TOOL_TEST_SRC)
+#ALL_C_HEADERS += $(TOOL_GEN_HEADER)
 
 TOOL_TEST_COMMON_OBJS :=		\
 	common/utils.o
@@ -34,9 +34,6 @@ TOOLS_WIRE_DEPS := $(BOLT_DEPS) tools/test/test_cases $(wildcard tools/gen/*_tem
 
 $(TOOL_TEST_OBJS) $(TOOL_GEN_OBJS): $(TOOL_GEN_HEADER)
 $(TOOL_TEST_PROGRAMS): $(TOOL_TEST_COMMON_OBJS) $(TOOL_GEN_SRC:.c=.o) tools/test/enum.o
-
-tools/test/test_gen.h: $(TOOLS_WIRE_DEPS) tools/test/Makefile
-	$(BOLT_GEN) --page header $@ test_type < tools/test/test_cases > $@
 
 .INTERMEDIATE: tools/test/test_gen.c.tmp.c
 # Parallel make sometimes tries to use file before update-mocks, so split.
@@ -53,7 +50,7 @@ tools/test/print_gen.c: $(TOOLS_WIRE_DEPS)
 	echo '#include "test_gen.h"' > $@
 	$(BOLT_GEN) -P --page impl ${@:.c=.h} test_type < tools/test/test_cases >> $@
 
-ALL_TEST_PROGRAMS += $(TOOL_TEST_PROGRAMS)
+#ALL_TEST_PROGRAMS += $(TOOL_TEST_PROGRAMS)
 
 check-tools: $(TOOL_TEST_PROGRAMS:%=unittest/%)
 endif # HAVE_PYTHON3_MAKO

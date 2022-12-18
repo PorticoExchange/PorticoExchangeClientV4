@@ -1,0 +1,42 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+export DH_VERBOSE = 1
+
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+
+%:
+	dh $@  --with autotools_dev
+
+override_dh_auto_clean:
+	echo Skipping
+
+
+override_dh_auto_build:
+	# Trick cargo into not writing stuff to our non-existent $HOME
+	mkdir /tmp/home
+	CARGO_HOME=/tmp/home cargo build --all --release --offline
+	CARGO_HOME=/tmp/home RUST_PROFILE=release make
+
+# dh_make generated override targets
+# This is example for Cmake (See https://bugs.debian.org/641051 )
+override_dh_auto_configure:
+	tar -xvjf vendor.tar.bz2
+	# PYTHON_VERSION is required for libwally's ./configure script so it
+	# doesn't fall back on the deprecated (and removed) version 2
+	PYTHON_VERSION=3 ./configure CC=gcc --disable-developer --disable-valgrind --prefix=/usr
+
+override_dh_auto_test:
+	echo Skipping
+
+override_dh_usrlocal:
+	echo Skipping
