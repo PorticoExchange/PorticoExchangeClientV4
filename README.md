@@ -19,6 +19,7 @@ This is a light client to interface with [PorticoExchange](https://github.com/Po
 - [ ] P2P Swaps
 - [ ] Hosted Channels
 - [ ] Miniscript, script and descriptors 
+- [x] Adde PayHold invoice
 
 # Product
 
