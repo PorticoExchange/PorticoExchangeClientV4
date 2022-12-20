@@ -16,6 +16,7 @@
 #include <common/random_select.h>
 #include <common/timeout.h>
 #include <common/type_to_string.h>
+#include <common/pay_hold_invoice.h>
 #include <db/exec.h>
 #include <errno.h>
 #include <hsmd/hsmd_wiregen.h>
@@ -169,6 +170,17 @@ struct invoice_payment_hook_payload {
 	/* FIXME: Include raw payload! */
 };
 
+struct pay_hold_invoice {
+	struct lightningd *ld;
+	/* Set to NULL if it is deleted while waiting for plugin */
+	struct htlc_set *set;
+	/* Set when pay the invoice */
+	const struct json_escape *label;
+	/* Amount it's offering. */
+	struct amount_msat msat;
+	/* Preimage we'll give it if succeeds. */
+	struct preimage preimage;
+	/* FIXME: Include raw payload! */
 #ifdef DEVELOPER
 static void invoice_payment_add_tlvs(struct json_stream *stream,
 				     struct htlc_set *hset)
