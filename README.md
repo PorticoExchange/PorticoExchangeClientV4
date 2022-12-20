@@ -1,8 +1,10 @@
-# Portico Exchange Client V4: A specification compliant Lightning Network implementation in C
+# Portico Exchange Client V4
 
 Portico Exchange Client V4 is a  implementation of the Lightning Network protocol.
 
 [![Active Development](https://img.shields.io/badge/Maintenance%20Level-Actively%20Developed-brightgreen.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d)
+
+https://api.codiga.io/project/35300/score/svg
 
 This is a light client to interface with [PorticoExchange](https://github.com/PorticoExchange/PorticoExchangeFrontendV2) to facilitate atomic swaps between Lightning Network/onchain BTC <-> Liquid Network/RGB/LNURL/Fedimint/Sequentia/Statechain/OmniBolt
 
