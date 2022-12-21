@@ -21,7 +21,7 @@ This is a light client to interface with [PorticoExchange](https://github.com/Po
 - [ ] Atomic Swap without need run full node Liquid and others sidechains/layers
 - [ ] Test with DLCs
 - [ ] P2P Swaps
-- [ ] Hosted Channels
+- [X] Hosted Channels
 - [ ] Miniscript, script and descriptors 
 - [x] Added PayHold invoice
 
