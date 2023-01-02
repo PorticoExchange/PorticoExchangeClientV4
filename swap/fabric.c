@@ -9,3 +9,4 @@ struct db;
 struct balance;
 struct listInvoice;
 struct generateInvoice;
+struct receiveInvoice;
