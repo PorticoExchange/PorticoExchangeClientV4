@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "cln-meta-project"
+name = "portico-protocol-lightning"
 version = "0.1.0"
 description = "Just a helper to get our python dependencies under control"
 authors = ["Christian Decker <cdecker@blockstream.com>"]
