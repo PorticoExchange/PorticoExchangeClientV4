@@ -1,0 +1,3 @@
+#ifndef LIQUID_NETWORK_LIGHTNING_H
+#define LIQUID_NETWORK_LIGHTNING_H
+#include "config.h"
