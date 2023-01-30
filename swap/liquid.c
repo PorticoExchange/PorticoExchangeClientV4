@@ -1,5 +1,5 @@
-#ifndef LIQUID_NETWORK_LIGHTNING_H
-#define LIQUID_NETWORK_LIGHTNING_H
+#ifndef ELEMENTS_LIGHTNING_H
+#define ELEMENTS_LIGHTNING_H
 #include "config.h"
 
 
