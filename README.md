@@ -1,6 +1,6 @@
-# Portico Exchange Client V4
+# Portico Exchange Client V4-Alpha
 
-Portico Exchange Client V4 is a  implementation of the Lightning Network protocol.
+Portico Exchange Client V4 is a  implementation of the Lightning Network protocol base to Beta version
 
 [![Active Development](https://img.shields.io/badge/Maintenance%20Level-Actively%20Developed-brightgreen.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d)
 
