@@ -11,3 +11,8 @@ struct listInvoice;
 struct generateInvoice;
 struct receiveInvoice;
 
+struct
+  
+struct
+ 
+struct
