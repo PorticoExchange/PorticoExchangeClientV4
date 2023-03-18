@@ -13,17 +13,7 @@ This is a light client to interface with [PorticoExchange](https://github.com/Po
 * Portico usa base this Light Client and [PorticoExchangeClientV3](https://github.com/PorticoExchange/PorticoExchangeClientV3)
 
 ## To-Do
-- [ ] Testnet
-- [ ] Integration with Umbrel, Raspiblitz
-- [ ] Mainnet
-- [ ] Fees
-- [ ] UI via web browser
-- [ ] Atomic Swap without need run full node Liquid and others sidechains/layers
-- [ ] Test with DLCs, Fabric, Liquid, Sequentia, Statechain, RGB
-- [ ] P2P Swa
-- [X] Hosted Channels
-- [ ] Miniscript, script and descriptors 
-- [x] Added PayHold invoice
+Theses features was moved to Portico Cliet-beta 
 
 # Product
 
